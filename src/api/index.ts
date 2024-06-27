@@ -2,9 +2,9 @@ import { Post } from '../types/index';
 
 const storageKey = 'simple_posts';
 
-export const getPosts = (): Post[] => {
+export const getPosts = (authed?: boolean): Post[] => {
 	const posts = JSON.parse(localStorage.getItem(storageKey)!) ?? [];
-	return posts;
+	return authed ? posts : posts.filter((post: Post) => !post.private);
 };
 
 export const getPost = (id: number): Post | null => {
